@@ -1,17 +1,22 @@
 var PROJECT_ID = 'katte-145613';
 
-var main = function() {
-    if (window.localStorage.getItem('registrationId')) {
-        return
-    }
-    chrome.gcm.register([PROJECT_ID], function(registrationId) {
-        // TODO: サーバにIDを送る
-        console.log('gcm registrationId: ' + registrationId);
-    });
+var registerUserToServer = function(name, registrationId) {
+    console.log('name: ' + name + ', gcm registrationId: ' + registrationId);
 }
 
-chrome.runtime.onInstalled.addListener(main);
-chrome.runtime.onStartup.addListener(main);
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.name == null) {
+            return;
+        }
+        if (window.localStorage.getItem('registrationId')) {
+            return
+        }
+        chrome.gcm.register([PROJECT_ID], function(registrationId) {
+            registerUserToServer(request.name, registrationId);
+        });
+    }
+);
 
 chrome.gcm.onMessage.addListener(function(message) {
     chrome.notifications.create('', {
