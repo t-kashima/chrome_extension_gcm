@@ -1,5 +1,5 @@
 {
-    "name": "Chrome Extension",
+    "name": "GCM Tester",
     "version": "1.0.0",
     "manifest_version": 2,
     "description": "description",
@@ -7,6 +7,11 @@
         "16": "icon.png",
         "48": "icon.png",
         "128": "icon.png"
+    },
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "GCM Tester",
+        "default_popup": "popup.html"
     },
     "background": {
         "scripts": [
