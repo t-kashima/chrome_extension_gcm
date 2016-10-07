@@ -1,4 +1,7 @@
 var PROJECT_ID = '814287454709';
+const BUTTON_INDEX_OPEN = 0;
+const BUTTON_INDEX_CLOSE = 1;
+
 var displayNotificationId = 0;
 
 var registerUserToServer = function(name, registrationId) {
@@ -42,7 +45,9 @@ chrome.gcm.onMessage.addListener(function(message) {
 
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
     if (displayNotificationId == notificationId) {
-        console.log(buttonIndex);
+        if (buttonIndex == BUTTON_INDEX_OPEN) {
+            window.open('http://google.co.jp/');
+        }
     }
     chrome.notifications.clear(notificationId);
 });
