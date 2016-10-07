@@ -1,8 +1,10 @@
-var PROJECT_ID = '814287454709';
-const BUTTON_INDEX_OPEN = 0;
-const BUTTON_INDEX_CLOSE = 1;
+const PROJECT_ID = '814287454709';
+const NOTIFICATION_ID = 'NOTIFICATION_ID';
 
-var displayNotificationId = 0;
+var ButtonIndex = {
+    OPEN: 0,
+    CLOSE: 1
+}
 
 var registerUserToServer = function(name, registrationId) {
     console.log('name: ' + name + ', gcm registrationId: ' + registrationId);
@@ -26,7 +28,9 @@ chrome.runtime.onMessage.addListener(
 );
 
 chrome.gcm.onMessage.addListener(function(message) {
-    chrome.notifications.create('', {
+    chrome.notifications.clear(NOTIFICATION_ID);
+
+    chrome.notifications.create(NOTIFICATION_ID, {
         title: message.data.title,
         message: message.data.message,
         type: 'basic',
@@ -38,16 +42,14 @@ chrome.gcm.onMessage.addListener(function(message) {
             title: "No",
             iconUrl: 'icon.png'
         }]
-    }, function(id) {
-        displayNotificationId = id;
     });
 });
 
 chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
-    if (displayNotificationId == notificationId) {
-        if (buttonIndex == BUTTON_INDEX_OPEN) {
+    if (NOTIFICATION_ID == notificationId) {
+        if (ButtonIndex.OPEN == buttonIndex) {
             window.open('http://google.co.jp/');
         }
+        chrome.notifications.clear(notificationId);
     }
-    chrome.notifications.clear(notificationId);
 });
