@@ -2,14 +2,27 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>GCM Tester</title>
+    <title>Katte</title>
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <p>GCM Tester</p>
-    <input type="text" name="name" id="input_name">
-    <button id="button_register">登録</button>
-    <p id="loading" class="display_none">ユーザー登録中...</p>
+    <h1>Katte</h1>
+    <div id="register_user_layout">
+      <p>まずはユーザー登録をしてください</p>
+      <p id="register_user_failure" class="display_none">名前とグレードを正しく入力してください</p>
+      <p>名前</p>
+      <p><input type="text" name="name" id="input_name"></p>
+      <p>グレード</p>
+      <p><input type="text" name="grade" id="input_grade"></p>
+      <button id="button_register">ユーザー登録</button>
+    </div>
+    <div id="already_register_user" class="display_none">
+      <p>ユーザー登録済みです</p>
+      <button id="button_open_katte">Katteを開く</button>
+    </div>
+    <div id="loading" class="display_none">
+      <p>ユーザー登録中...</p>
+    </div>
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="popup.js"></script>
   </body>
